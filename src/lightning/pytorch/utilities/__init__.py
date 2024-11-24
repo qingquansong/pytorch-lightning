@@ -34,6 +34,9 @@ from lightning.pytorch.utilities.rank_zero import (
     rank_zero_only,
     rank_zero_warn,
 )
+from lightning.pytorch.utilities.fp8_training_handler import FP8Config, Float8TrainingHandler
+from lightning.pytorch.utilities.fsdp2_handler import FSDP2Config, FSDP2Handler
+from lightning.pytorch.utilities.torch_compile_handler import TorchCompileHandler
 
 __all__ = [
     "AttributeDict",
@@ -53,6 +56,11 @@ __all__ = [
     "rank_zero_warn",
     "set_shared_parameters",
     "suggested_max_num_workers",
+    "FP8Config",
+    "Float8TrainingHandler",
+    "FSDP2Config",
+    "FSDP2Handler",
+    "TorchCompileHandler",
 ]
 
 FLOAT16_EPSILON = torch.finfo(torch.float16).eps
