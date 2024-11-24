@@ -25,6 +25,8 @@ from lightning.fabric.utilities import (
 )
 from lightning.pytorch.utilities.combined_loader import CombinedLoader
 from lightning.pytorch.utilities.enums import GradClipAlgorithmType
+from lightning.pytorch.utilities.fp8_training_handler import Float8TrainingHandler, FP8Config
+from lightning.pytorch.utilities.fsdp2_handler import FSDP2Config, FSDP2Handler
 from lightning.pytorch.utilities.grads import grad_norm
 from lightning.pytorch.utilities.parameter_tying import find_shared_parameters, set_shared_parameters
 from lightning.pytorch.utilities.parsing import AttributeDict, is_picklable
@@ -34,8 +36,6 @@ from lightning.pytorch.utilities.rank_zero import (
     rank_zero_only,
     rank_zero_warn,
 )
-from lightning.pytorch.utilities.fp8_training_handler import FP8Config, Float8TrainingHandler
-from lightning.pytorch.utilities.fsdp2_handler import FSDP2Config, FSDP2Handler
 from lightning.pytorch.utilities.torch_compile_handler import TorchCompileHandler
 
 __all__ = [

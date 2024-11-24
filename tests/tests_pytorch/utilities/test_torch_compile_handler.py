@@ -5,20 +5,19 @@ from unittest.mock import patch
 
 import torch.nn as nn
 from lightning.pytorch.demos import Transformer
-
 from lightning.pytorch.utilities.torch_compile_handler import TorchCompileHandler
 
 
 def mock_torch_compile(module, **kwargs):
-    """
-    Mock function for torch.compile that returns the module unchanged.
+    """Mock function for torch.compile that returns the module unchanged.
+
     This avoids actual compilation during testing.
+
     """
     return module
 
 
 class TestTorchCompileHandler(unittest.TestCase):
-
     def setUp(self):
         self.enable_compile = True
         self.model_path = "test_custom_transformer_model"

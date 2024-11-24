@@ -2,29 +2,29 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 import torch.nn as nn
-from lightning.pytorch.demos import Transformer
 from lightning.pytorch.utilities.fsdp2_handler import FSDP2Config, FSDP2Handler
 
 
 # Define mock functions
 def mock_fully_shard(module, **kwargs):
-    """
-    Mock for torch.distributed._composable.fsdp.fully_shard.
+    """Mock for torch.distributed._composable.fsdp.fully_shard.
+
     Returns the module unchanged to simulate sharding without actual processing.
+
     """
     return module
 
 
 def mock_checkpoint_wrapper(module):
-    """
-    Mock for torch.distributed.algorithms._checkpoint.checkpoint_wrapper.
+    """Mock for torch.distributed.algorithms._checkpoint.checkpoint_wrapper.
+
     Returns the module unchanged to simulate checkpoint wrapping without actual processing.
+
     """
     return module
 
 
 class TestFSDP2Handler(unittest.TestCase):
-
     def setUp(self):
         self.args = FSDP2Config(
             enable_gradient_checkpointing=True,

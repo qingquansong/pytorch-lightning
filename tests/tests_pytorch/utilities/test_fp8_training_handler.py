@@ -2,14 +2,12 @@ import unittest
 from unittest.mock import patch
 
 import torch.nn as nn
-from torchao.float8 import Float8Linear
 from lightning.pytorch.demos import Transformer
-
-from lightning.pytorch.utilities.fp8_training_handler import FP8Config, Float8TrainingHandler
+from lightning.pytorch.utilities.fp8_training_handler import Float8TrainingHandler, FP8Config
+from torchao.float8 import Float8Linear
 
 
 class TestFloat8TrainingHandler(unittest.TestCase):
-
     def setUp(self):
         self.args = FP8Config(
             enable_fp8=True,

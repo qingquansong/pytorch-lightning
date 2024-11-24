@@ -1,10 +1,10 @@
 import logging
+import operator
+from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 import torch
 import torch.nn as nn
-import operator
-from dataclasses import dataclass
 from lightning_utilities.core.imports import compare_version
 
 if TYPE_CHECKING:
@@ -20,8 +20,7 @@ class FSDP2Config:
 
 
 class FSDP2Handler:
-    """
-    Handler for wrapping the model layers with FSDP2.
+    """Handler for wrapping the model layers with FSDP2.
 
     Args:
         args (FSDP2Config): Configuration for FSDP2, including options for CPU offload and gradient checkpointing.
@@ -30,6 +29,7 @@ class FSDP2Handler:
     Attributes:
         args (FSDP2Config): Stores the FSDP2 configuration.
         device_mesh (DeviceMesh): Stores the device mesh configuration.
+
     """
 
     def __init__(self, args: FSDP2Config, device_mesh: "DeviceMesh"):
@@ -63,14 +63,14 @@ class FSDP2Handler:
             raise
 
     def wrap_model(self, model: nn.Module):
-        """
-        Wraps the model layers with FSDP configurations.
+        """Wraps the model layers with FSDP configurations.
 
         Args:
             model (nn.Module): The model to wrap.
 
         Returns:
             nn.Module: The wrapped model.
+
         """
         dp_mesh = self.device_mesh["data_parallel"]
         assert dp_mesh.size() > 1, "FSDP requires at least two devices."

@@ -1,22 +1,22 @@
 import logging
+import operator
+
 import torch
 import torch.nn as nn
-import operator
 from lightning_utilities.core.imports import compare_version
-
 
 log = logging.getLogger(__name__)
 
 
 class TorchCompileHandler:
-    """
-    Handler for compiling specific layers of the model using torch.compile.
+    """Handler for compiling specific layers of the model using torch.compile.
 
     Args:
         enable_compile (bool): Whether to enable compilation.
         model_path (str): Path to the model, used to determine default compilable layers.
         compile_layers (List[str], optional): List of layer class names to compile. If None, defaults are used.
         compile_args (dict, optional): Additional arguments to pass to torch.compile.
+
     """
 
     # Default mapping of model names to compilable layer class names
@@ -54,11 +54,11 @@ class TorchCompileHandler:
                     )
 
     def _get_default_compile_layers(self):
-        """
-        Determines the default layers to compile based on the model name.
+        """Determines the default layers to compile based on the model name.
 
         Returns:
             List[str]: List of layer class names to compile.
+
         """
         for model_name, layers in self.DEFAULT_COMPILABLE_LAYERS.items():
             if model_name in self.model_path:
@@ -66,11 +66,11 @@ class TorchCompileHandler:
         return []
 
     def compile_model(self, model: nn.Module):
-        """
-        Compiles specified layers in the model.
+        """Compiles specified layers in the model.
 
         Args:
             model (nn.Module): The model to compile.
+
         """
         if not self.enable_compile:
             return
@@ -84,11 +84,11 @@ class TorchCompileHandler:
         self._compile_layers(model)
 
     def _compile_layers(self, module: nn.Module):
-        """
-        Recursively compiles specified layers in the module.
+        """Recursively compiles specified layers in the module.
 
         Args:
             module (nn.Module): The module to process.
+
         """
         for name, child in module.named_children():
             child_class_name = type(child).__name__

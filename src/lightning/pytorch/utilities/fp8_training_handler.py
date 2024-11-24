@@ -1,8 +1,8 @@
 # the script is modified based on https://github.com/pytorch/torchtitan/blob/main/torchtitan/float8.py
 import logging
-from typing import Dict, List, Union
-from dataclasses import dataclass
 import operator
+from dataclasses import dataclass
+from typing import Dict, List, Union
 
 import torch
 import torch.nn as nn
@@ -44,13 +44,10 @@ MODULE_FILTER_MAP = {
 
 
 class Float8TrainingHandler:
-    """
-    Handler for configuring models for FP8 training using torchao.
-    """
+    """Handler for configuring models for FP8 training using torchao."""
 
     def __init__(self, args: FP8Config, model_path: str, parallel_dims: Dict[str, bool]):
-        """
-        Initializes the handler for FP8 training and configuration.
+        """Initializes the handler for FP8 training and configuration.
 
         Args:
             args (FP8Config): Configuration object for FP8 training, including settings for scaling, amax initialization, and torch compile.
@@ -74,6 +71,7 @@ class Float8TrainingHandler:
 
             parallel_dims = {"dp_shard_enabled": False}
             handler = Float8TrainingHandler(fp8_config, "path/to/model", parallel_dims)
+
         """
         self.model_path = model_path
         self.args = args
@@ -132,14 +130,14 @@ class Float8TrainingHandler:
         log.info("Float8 training active")
 
     def convert_to_float8_training(self, model: nn.Module, module_filter_fn: callable = None):
-        """
-        Converts the linear layers of `model` to `Float8Linear` based on a module filter function.
-        Mutates the model in place.
+        """Converts the linear layers of `model` to `Float8Linear` based on a module filter function. Mutates the model
+        in place.
 
         Args:
             model (nn.Module): The model whose layers should be converted.
             module_filter_fn (callable, optional): A function to filter which modules should be replaced.
                 Defaults to a model-specific filter based on `model_path`.
+
         """
         if not self.enable_fp8:
             log.warning("FP8 is disabled, so layers will not be replaced.")
